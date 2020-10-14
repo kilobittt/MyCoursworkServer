@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User Register(User user) {
+    public User register(User user) {
         Role roleUser = roleRepository.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
@@ -47,21 +47,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> GetAll() {
+    public List<User> getAll() {
         List<User> result = userRepository.findAll();
         log.info("IN GetAll - {} users found", result.size());
         return result;
     }
 
     @Override
-    public User FindByUsername(String username) {
+    public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
         log.info("IN FindByUsername - {} user found by username {}", result, username);
         return result;
     }
 
     @Override
-    public User FindById(Long id) {
+    public User findById(Long id) {
         User result = userRepository.findById(id).orElse(null);
         log.info("IN FindByUsername - {} user found by id {}", result, id);
         return result;

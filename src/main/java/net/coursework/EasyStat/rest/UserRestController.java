@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(value = "/api/v1/users/")
+@RequestMapping(value = "/api/users/")
 public class UserRestController {
     private final UserService userService;
 
@@ -31,7 +31,7 @@ public class UserRestController {
 
     @GetMapping(value = "{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id){
-        User user = userService.FindById(id);
+        User user = userService.findById(id);
 
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
