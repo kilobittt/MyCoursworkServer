@@ -99,16 +99,6 @@
                                  referencedTableName="roles"/>
     </changeSet>
 
-    <changeSet id="1.0.5" author="inozemtsev.dmitry">
-        <insert tableName="roles">
-            <column name="name" value="ROLE_USER"/>
-        </insert>
-
-        <insert tableName="roles">
-            <column name="name" value="ROLE_ADMIN"/>
-        </insert>
-    </changeSet>
-
     <changeSet id="1.0.6" author="inozemtsev.dmitry">
         <createTable tableName="questionnaires">
             <column name="id" type="BIGSERIAL" autoIncrement="true">
@@ -266,6 +256,134 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.5.0" author="inozemtsev.dmitry">
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.5.1" author="inozemtsev.dmitry">
+        <insert tableName="questionnaires">
+            <column name="id" value="1"/>
+            <column name="name" value="Простой опросник"/>
+            <column name="description" value="Это простой математический опросник"/>
+            <column name="type" value="SCHOOL"/>
+            <column name="owner_id" value="1"/>
+            <column name="is_represented" value="true"/>
+            <column name="is_marked" value="true"/>
+            <column name="access" value="PUBLIC"/>
+            <column name="questions_number" value="1"/>
+        </insert>
+
+        <insert tableName="questionnaires">
+            <column name="id" value="2"/>
+            <column name="name" value="Кто ты из супер-героев"/>
+            <column name="description" value="Этот вопросник подскажет тебе, кем бы ты был из супер-героев"/>
+            <column name="type" value="FUNNY"/>
+            <column name="owner_id" value="2"/>
+            <column name="is_represented" value="true"/>
+            <column name="is_marked" value="true"/>
+            <column name="access" value="PUBLIC"/>
+            <column name="questions_number" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.5.2" author="inozemtsev.dmitry">
+        <insert tableName="questions">
+            <column name="id" value="1"/>
+            <column name="name" value="Самый простой вопрос"/>
+            <column name="description" value="Сколько будет 2 + 2"/>
+            <column name="type" value="RADIO_BUTTON"/>
+            <column name="number" value="1"/>
+            <column name="answer1" value="НЕ_ВЕРНЫЙ/1"/>
+            <column name="answer2" value="НЕ_ВЕРНЫЙ/2"/>
+            <column name="answer3" value="НЕ_ВЕРНЫЙ/3"/>
+            <column name="answer4" value="ВЕРНЫЙ/4"/>
+            <column name="answer5" value="НЕ_ВЕРНЫЙ/5"/>
+            <column name="answer6" value="НЕ_ВЕРНЫЙ/6"/>
+            <column name="questionnaire_id" value="1"/>
+        </insert>
+
+        <insert tableName="questions">
+            <column name="id" value="2"/>
+            <column name="name" value="Мужчина или женщина"/>
+            <column name="description" value="Какого пола Ваш герой"/>
+            <column name="type" value="RADIO_BUTTON"/>
+            <column name="number" value="1"/>
+            <column name="answer1" value="SuperMan;Batman;IronMan/Мужчина"/>
+            <column name="answer2" value="SuperWoman;CatWoman/Женщина"/>
+            <column name="answer3" value="Robocop/Робот"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="questions">
+            <column name="id" value="3"/>
+            <column name="name" value="Способности вашего героя"/>
+            <column name="description" value="Какие силы и способности есть у Вашего героя?"/>
+            <column name="type" value="CHECK_BOX"/>
+            <column name="number" value="2"/>
+            <column name="answer1" value="BatMan;IronMan/Деньги"/>
+            <column name="answer2" value="CatWoman/Ловкость"/>
+            <column name="answer3" value="SuperMan;Robocop;IronMan;SuperWoman/Сила"/>
+            <column name="answer4" value="Robocop;IronMan;BatMan/Технологии"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="questions">
+            <column name="id" value="4"/>
+            <column name="name" value="Родина вашего супергероя"/>
+            <column name="description" value="Откуда появился Ваш супер герой?"/>
+            <column name="type" value="CHECK_BOX"/>
+            <column name="number" value="3"/>
+            <column name="answer1" value="IronMan;Robocop/Америка"/>
+            <column name="answer2" value="CatWoman;BatMan/Англия"/>
+            <column name="answer3" value=";SuperWoman/Другая планета"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.5.3" author="inozemtsev.dmitry">
+        <insert tableName="users">
+            <column name="id" value="1"/>
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@yandex.ru"/>
+            <column name="first_name" value="Дмитрий"/>
+            <column name="last_name" value="Иноземцев"/>
+            <column name="password" value="$2a$04$xn68kkClSmHqPrGX1.gFKu2wt8J1CxYFMrDkTd9wGIJD6hYdfgPhO"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" value="2"/>
+            <column name="username" value="user"/>
+            <column name="email" value="user@gmail.ru"/>
+            <column name="first_name" value="Эдуард"/>
+            <column name="last_name" value="Стрельцов"/>
+            <column name="password" value="$2a$04$FN7b48yhGJc7triOIRtjw.FB.6V0oQn0nTHn98ES6dDzDYByxe6xi"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="1.0.5.4" author="inozemtsev.dmitry">
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
     </changeSet>
 
 </databaseChangeLog>
