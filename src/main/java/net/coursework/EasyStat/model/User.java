@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
-public class User extends BaseEntity {
+public class User extends BaseUserEntity {
     @Column(name = "username")
     private String username;
 

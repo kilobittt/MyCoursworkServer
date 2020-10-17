@@ -4,7 +4,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 
-    <changeSet id="1.0.0" author="eugene.suleimanov">
+    <changeSet id="1.0.0" author="inozemtsev.dmitry">
         <createTable tableName="users">
             <column name="id" type="BIGSERIAL" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -45,7 +45,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="1.0.1" author="eugene.suleimanov">
+    <changeSet id="1.0.1" author="inozemtsev.dmitry">
         <createTable tableName="roles">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -69,7 +69,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="1.0.2" author="eugene.suleimanov">
+    <changeSet id="1.0.2" author="inozemtsev.dmitry">
         <createTable tableName="user_roles">
             <column name="user_id" type="BIGINT">
             </column>
@@ -79,7 +79,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="1.0.3" author="eugene.suleimanov">
+    <changeSet id="1.0.3" author="inozemtsev.dmitry">
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_roles"
                                  constraintName="fk_user_roles_user"
@@ -89,7 +89,7 @@
                                  referencedTableName="users"/>
     </changeSet>
 
-    <changeSet id="1.0.4" author="eugene.suleimanov">
+    <changeSet id="1.0.4" author="inozemtsev.dmitry">
         <addForeignKeyConstraint baseColumnNames="role_id"
                                  baseTableName="user_roles"
                                  constraintName="fk_user_roles_roles"
@@ -99,7 +99,7 @@
                                  referencedTableName="roles"/>
     </changeSet>
 
-    <changeSet id="1.0.5" author="eugene.suleimanov">
+    <changeSet id="1.0.5" author="inozemtsev.dmitry">
         <insert tableName="roles">
             <column name="name" value="ROLE_USER"/>
         </insert>
@@ -108,4 +108,164 @@
             <column name="name" value="ROLE_ADMIN"/>
         </insert>
     </changeSet>
+
+    <changeSet id="1.0.6" author="inozemtsev.dmitry">
+        <createTable tableName="questionnaires">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(5000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_represented" type="BOOLEAN" defaultValue="FALSE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_marked" type="BOOLEAN" defaultValue="FALSE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="access" type="VARCHAR(25)" defaultValue="FALSE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="questions_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.7" author="inozemtsev.dmitry">
+        <createTable tableName="questions">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(5000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="answer1" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer2" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer3" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer4" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer5" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer6" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer7" type="VARCHAR(1000)">
+            </column>
+
+            <column name="answer8" type="VARCHAR(1000)">
+            </column>
+
+            <column name="questionnaire_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.8" author="inozemtsev.dmitry">
+        <createTable tableName="answers">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="answers" type="VARCHAR(5000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="artifacts" type="VARCHAR(1000)">
+            </column>
+
+            <column name="question_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="questionnaire_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="respondent_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.9" author="inozemtsev.dmitry">
+        <createTable tableName="representations">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(7000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="questionnaire_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.10" author="inozemtsev.dmitry">
+        <createTable tableName="users_to_representation">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="respondent_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="representation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="questionnaire_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

@@ -40,6 +40,10 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
 
+        if(user.getId() == null){
+            System.out.println("NULL");
+        }
+
         User registredUser = userRepository.save(user);
 
         log.info("IN Register - user: {} successfully registered", registredUser);
