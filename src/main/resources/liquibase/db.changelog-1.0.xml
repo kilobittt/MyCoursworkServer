@@ -437,7 +437,7 @@
         </insert>
 
         <insert tableName="representations">
-            <column name="id" value="1"/>
+            <column name="id" value="3"/>
             <column name="name" value="Вы женщина-кошка"/>
             <column name="description" value="Вашей грации стоит опасаться"/>
             <column name="questionnaire_id" value="1"/>
