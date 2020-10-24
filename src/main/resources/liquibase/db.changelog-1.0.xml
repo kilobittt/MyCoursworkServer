@@ -386,4 +386,65 @@
 
     </changeSet>
 
+    <changeSet id="1.0.5.5" author="inozemtsev.dmitry">
+        <insert tableName="representations">
+            <column name="id" value="1"/>
+            <column name="name" value="Вы ответили верно"/>
+            <column name="description" value="2 + 2 = 4"/>
+            <column name="questionnaire_id" value="1"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="8"/>
+            <column name="name" value="Вы ответили неверно"/>
+            <column name="description" value="2 + 2 = 4"/>
+            <column name="questionnaire_id" value="1"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="2"/>
+            <column name="name" value="Вы прерожденный Бэтман"/>
+            <column name="description" value="Вы спасаете Готэм под покровом ночи"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="6"/>
+            <column name="name" value="Вы Супермен"/>
+            <column name="description" value="Вы прилетели на землю, чтобы найти любовь и спасти планету"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="7"/>
+            <column name="name" value="Суперженщина"/>
+            <column name="description" value="Вы самая милая из Мстителей"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="4"/>
+            <column name="name" value="Вы Робокоп"/>
+            <column name="description" value="Под присмотром такого сурового стража порядка можно спать спокойно"/>
+            <column name="questionnaire_id" value="2"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="5"/>
+            <column name="name" value="Вы Железный Человек"/>
+            <column name="description" value="Кто не знает Тони Старка ..."/>
+            <column name="questionnaire_id" value="1"/>
+        </insert>
+
+        <insert tableName="representations">
+            <column name="id" value="1"/>
+            <column name="name" value="Вы женщина-кошка"/>
+            <column name="description" value="Вашей грации стоит опасаться"/>
+            <column name="questionnaire_id" value="1"/>
+        </insert>
+
+
+
+    </changeSet>
+
 </databaseChangeLog>

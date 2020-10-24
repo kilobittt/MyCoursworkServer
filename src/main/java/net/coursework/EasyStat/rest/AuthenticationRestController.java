@@ -60,6 +60,7 @@ public class AuthenticationRestController {
             String token = jwtTokenProvider.CreateToken(username, user.getRoles());
 
             Map<Object, Object> response = new HashMap<>();
+            response.put("id", user.getId());
             response.put("username", username);
             response.put("token", token);
             response.put("firstName", user.getFirstName());
