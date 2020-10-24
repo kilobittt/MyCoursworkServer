@@ -10,6 +10,7 @@ import java.util.Date;
 @JsonIgnoreProperties
 @Data
 public class NewUserDto {
+    private Long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -25,11 +26,13 @@ public class NewUserDto {
         user.setPassword(password);
         user.setCreated(new Date());
         user.setUpdated(new Date());
+        user.setId(id);
         return user;
     }
 
     public static NewUserDto fromUser(User user) {
         NewUserDto newUserDto = new NewUserDto();
+        newUserDto.setId(user.getId());
         newUserDto.setPassword(user.getPassword());
         newUserDto.setUsername(user.getUsername());
         newUserDto.setFirstName(user.getFirstName());

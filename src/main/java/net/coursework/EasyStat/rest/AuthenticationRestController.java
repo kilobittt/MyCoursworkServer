@@ -62,6 +62,9 @@ public class AuthenticationRestController {
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("token", token);
+            response.put("firstName", user.getFirstName());
+            response.put("lastname", user.getLastName());
+            response.put("email", user.getEmail());
 
             return ResponseEntity.ok(response);
         }catch (AuthenticationException e){

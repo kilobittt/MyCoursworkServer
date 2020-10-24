@@ -24,6 +24,7 @@ public class QuestionnaireRestController {
         this.questionnaireService = questionnaireService;
     }
 
+    //TODO переделать этот метод
     @GetMapping(value = "/all")
     public ResponseEntity<List<QuestionnaireDto>> getAllQuestionnaire(@RequestParam(name = "access") String access){
         List<Questionnaire> questionnaires = questionnaireService.getAllQuestionnaires(access);
@@ -114,6 +115,7 @@ public class QuestionnaireRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    //TODO поменять на stat/user/{id}
     @GetMapping(value = "/stat/{id}")
     public ResponseEntity<List<QuestionnaireStatDto>> getQuestionnaireWithStatByUserId(@PathVariable(name = "id") Long id){
         List<QuestionnaireStatDto> result = questionnaireService.getQuestionnairesStatByUserId(id);
@@ -136,6 +138,7 @@ public class QuestionnaireRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    //TODO поменять возвращаемое значение на мапу, как при авторизации
     @PostMapping(value = "/new")
     public ResponseEntity<Long> saveNewQuestionnaire(@RequestBody NewQuestionnaireDto newQuestionnaire){
         Questionnaire inputQuestionnaire = newQuestionnaire.toQuestionnaire();
