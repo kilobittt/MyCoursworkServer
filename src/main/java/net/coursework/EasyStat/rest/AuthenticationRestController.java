@@ -41,7 +41,8 @@ public class AuthenticationRestController {
 
     @PostMapping("/signup")
     public ResponseEntity<NewUserDto> signup(@RequestBody NewUserDto newUserDto){
-        userService.register(newUserDto.toUser());
+        User registeredUser = userService.register(newUserDto.toUser());
+        newUserDto.setId(registeredUser.getId());
 
         return new ResponseEntity<>(newUserDto, HttpStatus.OK);
     }
