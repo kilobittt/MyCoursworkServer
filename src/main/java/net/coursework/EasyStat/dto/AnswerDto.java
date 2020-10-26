@@ -32,7 +32,9 @@ public class AnswerDto {
             isFirst = false;
 
             answers = answers.concat(option.getAnswer());
-            artifacts = artifacts.concat(option.getArtifact());
+            if(option.getArtifact() != null) {
+                artifacts = artifacts.concat(option.getArtifact());
+            }
         }
         answer.setAnswers(answers);
         answer.setArtifacts(artifacts);
