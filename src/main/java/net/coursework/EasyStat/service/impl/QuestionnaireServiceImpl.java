@@ -180,6 +180,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
             List<Answer> answers = answerRepository.findAllByQuestionnaireId(questionnaire.getId());
             statDto.setRespondentsNumber(answers.size() / questionnaire.getQuestionsNumber());
+            System.out.println("ОН ВИДИТ ТОЛЬКО " + answers.size() + "ОТВЕТОВ НА ЭТОТ ОПРОСНИК");
             if(questionnaire.isMarked()) {
                 statDto.setArtifactStats(answers);
             }
