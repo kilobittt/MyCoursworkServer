@@ -180,7 +180,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
             List<Answer> answers = answerRepository.findAllByQuestionnaireId(questionnaire.getId());
             statDto.setRespondentsNumber(answers.size() / questionnaire.getQuestionsNumber());
-            System.out.println("ОН ВИДИТ ТОЛЬКО " + answers.size() + "ОТВЕТОВ НА ЭТОТ ОПРОСНИК");
+            System.out.println("ОН ВИДИТ ТОЛЬКО " + answers.size() + " ОТВЕТОВ НА ЭТОТ ОПРОСНИК");
+            System.out.println("И ВИДИТ ЧТО В ОПРОСНИКЕ" + questionnaire.getQuestionsNumber() + "ОТВЕТОВ");
+            System.out.println("ТЕПЕРЬ В СТАТ ДТО РЕСПОНДЕНТОВ" + statDto.getRespondentsNumber());
             if(questionnaire.isMarked()) {
                 statDto.setArtifactStats(answers);
             }
@@ -205,7 +207,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 }
                 statDto.setRepresentationsStats(representationsNames);
             }
-
+            System.out.println("А НА ВЫХОД В СТАТ ДТО РЕСПОНДЕНТОВ" + statDto.getRespondentsNumber());
             result.add(statDto);
         }
 
