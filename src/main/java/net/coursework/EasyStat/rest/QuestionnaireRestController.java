@@ -1,10 +1,9 @@
 package net.coursework.EasyStat.rest;
 
 import net.coursework.EasyStat.dto.*;
-import net.coursework.EasyStat.model.Answer;
-import net.coursework.EasyStat.model.Question;
-import net.coursework.EasyStat.model.Questionnaire;
+import net.coursework.EasyStat.model.*;
 import net.coursework.EasyStat.service.QuestionnaireService;
+import net.coursework.EasyStat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +17,12 @@ import java.util.List;
 public class QuestionnaireRestController {
 
     private final QuestionnaireService questionnaireService;
+    private final UserService userService;
 
     @Autowired
-    public QuestionnaireRestController(QuestionnaireService questionnaireService) {
+    public QuestionnaireRestController(QuestionnaireService questionnaireService, UserService userService) {
         this.questionnaireService = questionnaireService;
+        this.userService = userService;
     }
 
     //TODO переделать этот метод
@@ -118,7 +119,21 @@ public class QuestionnaireRestController {
     //TODO поменять на stat/user/{id}
     @GetMapping(value = "/stat/{id}")
     public ResponseEntity<List<QuestionnaireStatDto>> getQuestionnaireWithStatByUserId(@PathVariable(name = "id") Long id){
-        List<QuestionnaireStatDto> result = questionnaireService.getQuestionnairesStatByUserId(id);
+
+        User owner = userService.findById(id);
+        boolean isAdmin = false;
+        for(Role userRole: owner.getRoles()){
+            if(userRole.getName().equals("ROLE_ADMIN")){
+                isAdmin = true;
+            }
+        }
+
+        List<QuestionnaireStatDto> result;
+        if(isAdmin){
+            result = questionnaireService.getAllSts();
+        }else {
+         result = questionnaireService.getQuestionnairesStatByUserId(id);
+        }
 
         if(result == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -162,6 +177,19 @@ public class QuestionnaireRestController {
         }
 
         questionnaireService.createQuestionsForQuestionnaire(questions);
+
+        return new ResponseEntity<>("Successfully", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/new/representations")
+    public ResponseEntity<String> saveNewRepresentations(@RequestBody List<RepresentationDto> newRepresentations){
+        List<Representation> representations = new ArrayList<>();
+
+        for(RepresentationDto newRepresentation : newRepresentations){
+            representations.add(newRepresentation.toRepresentation());
+        }
+
+        questionnaireService.createNewRepresentations(representations);
 
         return new ResponseEntity<>("Successfully", HttpStatus.OK);
     }
