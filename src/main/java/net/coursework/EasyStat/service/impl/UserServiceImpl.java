@@ -46,34 +46,34 @@ public class UserServiceImpl implements UserService {
 
         User registredUser = userRepository.save(user);
 
-        log.info("IN Register - user with name: {} successfully registered", registredUser.getUsername());
+        //log.info("IN Register - user with name: {} successfully registered", registredUser.getUsername());
         return registredUser;
     }
 
     @Override
     public List<User> getAll() {
         List<User> result = userRepository.findAll();
-        log.info("IN GetAll - {} users found", result.size());
+        //log.info("IN GetAll - {} users found", result.size());
         return result;
     }
 
     @Override
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
-        log.info("IN FindByUsername - {} user found by username {}", result, username);
+      //  log.info("IN FindByUsername - {} user found by username {}", result, username);
         return result;
     }
 
     @Override
     public User findById(Long id) {
         User result = userRepository.findById(id).orElse(null);
-        log.info("IN FindByUsername - user found by id {}", id);
+      //  log.info("IN FindByUsername - user found by id {}", id);
         return result;
     }
 
     @Override
     public void Delete(Long id) {
         userRepository.deleteById(id);
-        log.info("IN Delete - user with id {} successfully deleted", id);
+       // log.info("IN Delete - user with id {} successfully deleted", id);
     }
 }
