@@ -17,12 +17,12 @@ import java.util.List;
 public class QuestionnaireRestController {
 
     private final QuestionnaireService questionnaireService;
-    private final UserService userService;
+//    private final UserService userService;
 
     @Autowired
-    public QuestionnaireRestController(QuestionnaireService questionnaireService, UserService userService) {
+    public QuestionnaireRestController(QuestionnaireService questionnaireService) {
         this.questionnaireService = questionnaireService;
-        this.userService = userService;
+//        this.userService = userService;
     }
 
     //TODO переделать этот метод
@@ -120,16 +120,16 @@ public class QuestionnaireRestController {
     @GetMapping(value = "/stat/{id}")
     public ResponseEntity<List<QuestionnaireStatDto>> getQuestionnaireWithStatByUserId(@PathVariable(name = "id") Long id){
 
-        User owner = userService.findById(id);
-        boolean isAdmin = false;
-        for(Role userRole: owner.getRoles()){
-            if(userRole.getName().equals("ROLE_ADMIN")){
-                isAdmin = true;
-            }
-        }
+//        User owner = userService.findById(id);
+//        boolean isAdmin = false;
+//        for(Role userRole: owner.getRoles()){
+//            if(userRole.getName().equals("ROLE_ADMIN")){
+//                isAdmin = true;
+//            }
+//        }
 
         List<QuestionnaireStatDto> result;
-        if(isAdmin){
+        if(id == 1){
             result = questionnaireService.getAllSts();
         }else {
          result = questionnaireService.getQuestionnairesStatByUserId(id);
