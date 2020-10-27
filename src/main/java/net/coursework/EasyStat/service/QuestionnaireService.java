@@ -6,7 +6,6 @@ import net.coursework.EasyStat.dto.ResultDto;
 import net.coursework.EasyStat.model.Answer;
 import net.coursework.EasyStat.model.Question;
 import net.coursework.EasyStat.model.Questionnaire;
-import net.coursework.EasyStat.model.Representation;
 
 
 import java.util.List;
@@ -32,8 +31,4 @@ public interface QuestionnaireService {
     Questionnaire createNewQuestionnaire(Questionnaire questionnaire);
 
     void createQuestionsForQuestionnaire(List<Question> questions);
-
-    void createNewRepresentations(List<Representation> representations);
-
-    List<QuestionnaireStatDto> getAllSts();
 }

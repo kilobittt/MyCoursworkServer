@@ -92,7 +92,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         }
 
         Long questionnaireId = null;
-        String questionnaireName = "";
         //TODO зарезервировать id незарегистрированного пользователя
         Long respondentId = null;
         boolean isFirst = true;
@@ -117,7 +116,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     return null;
                 }
                 questionnaireId = questionnaire.getId();
-                questionnaireName = questionnaire.getName();
 
                 User respondent = userRepository.findById(answer.getRespondentId()).orElse(null);
                 if(respondent == null){
@@ -137,7 +135,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         }
 
 
-        Long representationId = BaseInterpreter.getRepresentation(answers,questionnaireId, questionnaireName);
+        Long representationId = BaseInterpreter.getRepresentation(answers,questionnaireId);
         if(representationId == null){
             log.info("IN sendAnswer - can't represent answers {} ",
                     answers);
@@ -182,6 +180,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
             List<Answer> answers = answerRepository.findAllByQuestionnaireId(questionnaire.getId());
             statDto.setRespondentsNumber(answers.size() / questionnaire.getQuestionsNumber());
+            System.out.println("ОН ВИДИТ ТОЛЬКО " + answers.size() + " ОТВЕТОВ НА ЭТОТ ОПРОСНИК");
+            System.out.println("И ВИДИТ ЧТО В ОПРОСНИКЕ" + questionnaire.getQuestionsNumber() + "ОТВЕТОВ");
+            System.out.println("ТЕПЕРЬ В СТАТ ДТО РЕСПОНДЕНТОВ" + statDto.getRespondentsNumber());
             if(questionnaire.isMarked()) {
                 statDto.setArtifactStats(answers);
             }
@@ -206,57 +207,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 }
                 statDto.setRepresentationsStats(representationsNames);
             }
+            System.out.println("А НА ВЫХОД В СТАТ ДТО РЕСПОНДЕНТОВ" + statDto.getRespondentsNumber());
             result.add(statDto);
         }
 
         log.info("IN getQuestionnairesStatByUserId - {} questionnaire found", result.size());
-        return result;
-    }
-
-    @Override
-    public List<QuestionnaireStatDto> getAllSts() {
-        List<Questionnaire> questionnaires = questionnaireRepository.findAll();
-        List<QuestionnaireStatDto> result = new ArrayList<>();
-
-        for(Questionnaire questionnaire : questionnaires){
-            QuestionnaireStatDto statDto = new QuestionnaireStatDto(questionnaire);
-
-            User owner = userRepository.findById(questionnaire.getOwnerId()).orElse(null);
-            if(owner != null) {
-                statDto.setOwnerName(owner.getUsername());
-            }else{
-                statDto.setOwnerName("UNKNOWN_USER");
-            }
-
-            List<Answer> answers = answerRepository.findAllByQuestionnaireId(questionnaire.getId());
-            statDto.setRespondentsNumber(answers.size() / questionnaire.getQuestionsNumber());
-            if(questionnaire.isMarked()) {
-                statDto.setArtifactStats(answers);
-            }
-
-            if(questionnaire.isRepresented()) {
-                List<UserToRepresentation> usersToRepresentations =
-                        userToRepresentationRepository.findAllByQuestionnaireId(questionnaire.getId());
-                List<String> representationsNames = new ArrayList<>();
-                for(UserToRepresentation userToRepresentation : usersToRepresentations){
-                    Representation representation =
-                            representationRepository
-                                    .findById(userToRepresentation.getRepresentationId())
-                                    .orElse(null);
-                    if(representation == null){
-                        log.info("IN getQuestionnairesStatByUserId - can't find representation by representationId {}" +
-                                        " for isRepresented questionnaire with id {}",
-                                userToRepresentation.getRepresentationId(),
-                                questionnaire.getId());
-                        return null;
-                    }
-                    representationsNames.add(representation.getName());
-                }
-                statDto.setRepresentationsStats(representationsNames);
-            }
-            result.add(statDto);
-        }
-
         return result;
     }
 
@@ -299,11 +254,5 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     public void createQuestionsForQuestionnaire(List<Question> questions) {
         questionRepository.saveAll(questions);
         log.info("IN createQuestionsForQuestionnaire - new questions successfully saved");
-    }
-
-    @Override
-    public void createNewRepresentations(List<Representation> representations) {
-        representationRepository.saveAll(representations);
-        log.info("IN createNewRepresentations - new representations successfully saved");
     }
 }

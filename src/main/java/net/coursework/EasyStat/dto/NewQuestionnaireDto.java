@@ -12,8 +12,7 @@ public class NewQuestionnaireDto {
     private String description;
     private String type;
     private Long ownerId;
-    private boolean marked;
-    private boolean represented;
+    private boolean isMarked;
     private Long questionsNumber;
 
     public static NewQuestionnaireDto fromQuestionnaire(Questionnaire questionnaire){
@@ -23,8 +22,8 @@ public class NewQuestionnaireDto {
         dto.type = questionnaire.getType();
         dto.ownerId = questionnaire.getOwnerId();
         dto.questionsNumber = questionnaire.getQuestionsNumber();
-        dto.marked = questionnaire.isMarked();
-        dto.represented = questionnaire.isRepresented();
+        dto.isMarked = questionnaire.isMarked();
+
         return dto;
     }
 
@@ -36,9 +35,7 @@ public class NewQuestionnaireDto {
         questionnaire.setType(type);
         questionnaire.setOwnerId(ownerId);
         questionnaire.setQuestionsNumber(questionsNumber);
-        questionnaire.setMarked(marked);
-        System.out.println("НУ КАК СУКА " + represented);
-        questionnaire.setRepresented(represented);
+        questionnaire.setMarked(isMarked);
 
         return questionnaire;
     }

@@ -32,28 +32,19 @@ public class BaseInterpreter {
         return stat;
     }
 
-    public static Long getRepresentation(List<Answer> answers, Long questionnaireId, String questionnaireName){
+    public static Long getRepresentation(List<Answer> answers, Long questionnaireId){
         Map<String, Long> stat = getStat(answers);
-        if(questionnaireId <= 2) {
-            switch (questionnaireId.intValue()) {
-                case 1: {
-                    return EasyTestInterpreter.interpret(stat);
-                }
-                case 2: {
-                    return SuperHeroInterpreter.interpret(stat);
-                }
-                default: {
-                    return null;
-                }
+        switch (questionnaireId.intValue()) {
+            case 1:{
+                return EasyTestInterpreter.interpret(stat);
+            }
+            case 2:{
+                return SuperHeroInterpreter.interpret(stat);
+            }
+            default: {
+                return null;
             }
         }
-
-        switch(questionnaireName){
-            case "Активный ли вы человек?":{
-                return ActiveInterpreter.interpret(stat);
-            }
-        }
-        return null;
     }
 
 }
